@@ -11,7 +11,6 @@ if (graphics != null) {
     NSApp.sendAction_to_from('copy:', null, context.document);
 
     var fastLoop = context.document.artboards().objectEnumerator();
-
     while (board = fastLoop.nextObject()) {
         var original_frame = board.frame();
         var size = original_frame.width();
@@ -32,12 +31,13 @@ if (graphics != null) {
             NSApp.sendAction_to_from('paste:', null, context.document);
 
             var l = board.layers();
-            for (var i = 0; i < board.layers().count(); i++) {
+            for (var i = 1; i < board.layers().count(); i++) {
               var layer = board.layers().objectAtIndex(i);
               board.removeLayer(layer);
             }
-            var newGroup = l.objectAtIndex(l.count() - 1);
-
+            l = board.layers();
+            var newGroup = l.objectAtIndex(0);
+            log("Here3");
             var relativeSizeFactorWidth = newGroup.frame().width() / sourceArtboardSize;
             var relativeSizeFactorHeight = newGroup.frame().height() / sourceArtboardSize;
 
